@@ -174,7 +174,9 @@ def muze_patient_ko_dekhana_hain(patient_id: str = Path(..., description='ID of 
     return {"error": f"Patient {patient_id} data main nahi hain"}
 ```
 <img width="1920" height="985" alt="Screenshot 2025-08-17 003535" src="https://github.com/user-attachments/assets/aa1d7ba7-e58d-462c-858f-956c3ef47ceb" />
+
 ---
+
 #### Code with HTTPException
 
 ![WhatsApp Image 2025-08-17 at 04 28 24_2314f657](https://github.com/user-attachments/assets/1447abc0-625b-4e6f-b81f-a640f1d9a3e8)
