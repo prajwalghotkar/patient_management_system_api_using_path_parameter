@@ -134,7 +134,7 @@ def muze_patient_ko_dekhana_hain(patient_id: str):
 - Connect to a real database (SQLite / MySQL / PostgreSQL)
 - Add authentication for secure access 
 
-http://127.0.0.1:8000/docs#/default/muze_patient_ko_dekhana_hain_patient__patient_id__get
+##### http://127.0.0.1:8000/docs#/default/muze_patient_ko_dekhana_hain_patient__patient_id__get
 ---
-##### Using path function
+#### Using path function
 
