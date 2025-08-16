@@ -174,3 +174,49 @@ def muze_patient_ko_dekhana_hain(patient_id: str = Path(..., description='ID of 
     return {"error": f"Patient {patient_id} data main nahi hain"}
 ```
 <img width="1920" height="985" alt="Screenshot 2025-08-17 003535" src="https://github.com/user-attachments/assets/aa1d7ba7-e58d-462c-858f-956c3ef47ceb" />
+---
+#### Code with HTTPException
+
+![WhatsApp Image 2025-08-17 at 04 28 24_2314f657](https://github.com/user-attachments/assets/1447abc0-625b-4e6f-b81f-a640f1d9a3e8)
+
+```
+from fastapi import FastAPI, Path, HTTPException
+import json
+
+app = FastAPI()
+
+def load_data():
+    with open('patients.json','r') as prajwal_file:
+        data = json.load(prajwal_file)
+    return data    
+
+@app.get("/")
+def read_root():
+    return {"message": "Patient Management System API"}
+
+@app.get('/about')
+def about():
+    return {'message': 'This is the Patient Management System API, designed to manage patient records efficiently.'}
+
+@app.get('/view')
+def view():
+    data = load_data()
+
+    return data
+
+@app.get("/patient/{patient_id}")
+def muze_patient_ko_dekhana_hain(patient_id: str = Path(..., description='ID of the patient in the DataBase',example='P002')):
+    # Load all the patients
+    data = load_data()
+
+    # Check if patient exists
+    if patient_id in data:
+        return data[patient_id]
+    raise HTTPException(status_code=404, detail='Patient DataBase main hain hi nahi')
+```
+
+<img width="1920" height="911" alt="Screenshot 2025-08-17 042945" src="https://github.com/user-attachments/assets/8879087d-b323-462e-b4b9-4c03f8f0a954" />
+<img width="1920" height="1022" alt="Screenshot 2025-08-17 042956" src="https://github.com/user-attachments/assets/391b8256-4caa-488a-a829-3fa29c8ee6d1" />
+http://127.0.0.1:8000/docs#/default/muze_patient_ko_dekhana_hain_patient__patient_id__get
+
+
