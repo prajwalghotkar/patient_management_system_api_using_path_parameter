@@ -137,4 +137,40 @@ def muze_patient_ko_dekhana_hain(patient_id: str):
 ##### http://127.0.0.1:8000/docs#/default/muze_patient_ko_dekhana_hain_patient__patient_id__get
 ---
 #### Using path function
+```
+from fastapi import FastAPI, Path
+import json
 
+app = FastAPI()
+
+def load_data():
+    with open('patients.json','r') as prajwal_file:
+        data = json.load(prajwal_file)
+    return data    
+
+@app.get("/")
+def read_root():
+    return {"message": "Patient Management System API"}
+
+@app.get('/about')
+def about():
+    return {'message': 'This is the Patient Management System API, designed to manage patient records efficiently.'}
+
+@app.get('/view')
+def view():
+    data = load_data()
+
+    return data
+
+@app.get("/patient/{patient_id}")
+def muze_patient_ko_dekhana_hain(patient_id: str = Path(..., description='ID of the patient in the DataBase',example='P002')):
+    # Load all the patients
+    data = load_data()
+
+    # Check if patient exists
+    if patient_id in data:
+        return data[patient_id]
+    
+    return {"error": f"Patient {patient_id} data main nahi hain"}
+```
+<img width="1920" height="985" alt="Screenshot 2025-08-17 003535" src="https://github.com/user-attachments/assets/aa1d7ba7-e58d-462c-858f-956c3ef47ceb" />
