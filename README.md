@@ -94,3 +94,4 @@ GET /patient/P003
 - Add PUT and DELETE for full CRUD operations
 - Connect to a real database (SQLite / MySQL / PostgreSQL)
 - Add authentication for secure access 
+http://127.0.0.1:8000/docs#/default/muze_patient_ko_dekhana_hain_patient__patient_id__get
