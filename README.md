@@ -86,3 +86,11 @@ GET /patient/P003
 - BMI included with health verdicts (Normal, Overweight, Obese, Underweight)
 ---
 ##### How to Run
+
+
+
+##### Future Enhancements
+- Add POST endpoint to insert new patients
+- Add PUT and DELETE for full CRUD operations
+- Connect to a real database (SQLite / MySQL / PostgreSQL)
+- Add authentication for secure access 
