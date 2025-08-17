@@ -398,6 +398,47 @@ def sort_patients(
 
     return sorted_data
 ```
+
+# Query Parameters  
+
+Query parameters are optional key-value pairs appended to the end of a URL, used to pass additional data to the server in an HTTP request. They are typically employed for operations like filtering, sorting, searching, and pagination — without altering the endpoint path itself.  
+
+**Example:**  
+```
+/patients?city=Delhi&sort_by=age
+```
+
+- The `?` marks the start of query parameters.  
+- Each parameter is a key-value pair (`key=value`).  
+- Multiple parameters are separated by `&`.  
+
+### In this case:
+- `city=Delhi` → is a query parameter for filtering.  
+- `sort_by=age` → is a query parameter for sorting.  
+
+---
+
+## Query() in FastAPI  
+`Query()` is a utility function provided by **FastAPI** to declare, validate, and document query parameters in your API endpoint.  
+
+It allows you to:  
+- Set default values  
+- Enforce validation rules  
+- Add metadata like description, title, example  
+
+---
+
+### Common Parameters in `Query()`  
+
+- **default** --> Set default value (e.g., `Query(0)`)  
+- **title** --> Displayed in API docs  
+- **description** --> Detailed explanation in Swagger UI  
+- **example / examples** --> Provide sample inputs  
+- **min_length / max_length** --> Validate string length  
+- **ge, gt, le, lt** --> Validate numeric bounds  
+- **regex** --> Pattern match for strings  
+
+---
 ### sorting on the basis of height
 <img width="1920" height="907" alt="Screenshot 2025-08-17 053755" src="https://github.com/user-attachments/assets/cb248d59-63c0-415e-b945-99c22c3c9e03" />
 ---
