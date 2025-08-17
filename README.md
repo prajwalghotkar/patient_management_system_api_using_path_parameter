@@ -341,6 +341,70 @@ Example Response:
 - Includes BMI values with health verdicts (Normal, Overweight, Obese, Underweight)  
 
 ---
+##### Code
+```
+from fastapi import FastAPI, Query, HTTPException
+import json
 
+app = FastAPI()
+
+def load_data():
+    with open('patients.json','r') as prajwal_file:
+        data = json.load(prajwal_file)
+    return data    
+
+@app.get("/")
+def read_root():
+    return {"message": "Patient Management System API"}
+
+@app.get('/about')
+def about():
+    return {'message': 'This is the Patient Management System API, designed to manage patient records efficiently.'}
+
+@app.get('/view')
+def view():
+    data = load_data()
+
+    return data
+
+@app.get("/patient/{patient_id}")
+def muze_patient_ko_dekhana_hain(patient_id: str = Path(..., description='ID of the patient in the DataBase',example='P002')):
+    # Load all the patients
+    data = load_data()
+
+    # Check if patient exists
+    if patient_id in data:
+        return data[patient_id]
+    raise HTTPException(status_code=404, detail='Patient DataBase main hain hi nahi')
+
+@app.get("/sort")
+def sort_patients(
+    sort_by: str = Query(..., description="Sort on the basis of height, weight, bmi"),
+    order: str = Query("asc", description="Sort in asc or desc order")):
+
+    valid_fields = ['height','weight','bmi']
+
+    if sort_by not in valid_fields:
+        raise HTTPException(status_code=400,detail=f'Invalid field select from {valid_fields}')
+    
+    if order not in ['asc','desc']:
+        raise HTTPException(status_code=400,detail='Invalid order select between asc and desc')
+    
+    data = load_data()
+
+    sort_order = True if order=='desc' else False
+
+    sorted_data = sorted(data.values(), key=lambda x: x.get(sort_by, 0),reverse=sort_order)
+
+    return sorted_data
+```
+### sorting on the basis of height
+<img width="1920" height="907" alt="Screenshot 2025-08-17 053755" src="https://github.com/user-attachments/assets/cb248d59-63c0-415e-b945-99c22c3c9e03" />
+---
+### sorting on the basis of bmi
+<img width="1920" height="955" alt="Screenshot 2025-08-17 053825" src="https://github.com/user-attachments/assets/ba76d9a2-c7d1-443a-a7bb-b54ae850f693" />
+
+
+### http://127.0.0.1:8000/docs#/default/sort_patients_sort_get
 
 
