@@ -221,4 +221,126 @@ def muze_patient_ko_dekhana_hain(patient_id: str = Path(..., description='ID of 
 <img width="1920" height="1022" alt="Screenshot 2025-08-17 042956" src="https://github.com/user-attachments/assets/391b8256-4caa-488a-a829-3fa29c8ee6d1" />
 http://127.0.0.1:8000/docs#/default/muze_patient_ko_dekhana_hain_patient__patient_id__get
 
+---
+
+# 🏥 Patient Management System API (FastAPI + Query Parameters)
+
+- The **Patient Management System API** is a lightweight RESTful API built with **FastAPI** that manages patient records efficiently.  
+- This version demonstrates the use of **Query Parameters** to fetch and sort patient information.  
+- It uses a **JSON file (`patients.json`) as the database**, making it easy to test, extend, and deploy.  
+
+---
+
+##### Tech Stack
+- **Backend Framework:** FastAPI  
+- **Language:** Python  
+- **Database:** JSON file (`patients.json`)  
+- **Server:** Uvicorn  
+
+---
+
+##### Project Structure
+```
+patient_management_system/
+--> patients.json          # Database (Patient Records)
+--> main.py                # FastAPI Application
+--> README.md              # Documentation
+```
+
+---
+
+#### API Endpoints
+
+##### 1. Root Endpoint  
+**GET /**  
+Returns a welcome message.  
+```json
+{"message": "Patient Management System API (with Query Parameters)"}
+```
+
+---
+
+##### 2. About Endpoint  
+**GET /about**  
+Describes the purpose of the API.  
+```json
+{"message": "This is the Patient Management System API, designed to manage patient records efficiently."}
+```
+
+---
+
+##### 3. View All Patients  
+**GET /view**  
+Returns all patients stored in the database.  
+
+Example Response:  
+```json
+{
+  "P001": {"name": "Manaswi Sharma", "city": "New York City", "age": 28, "gender": "female", "bmi": 33.06, "verdict": "Obese"},
+  "P002": {"name": "Prajwal Ghotkar", "city": "Los Angeles", "age": 35, "gender": "male", "bmi": 27.76, "verdict": "Overweight"}
+}
+```
+
+---
+
+##### 4. View Patient by ID (Query Parameter)  
+**GET /patient?patient_id={id}**  
+
+##### Example Request:  
+```
+/patient?patient_id=P002
+```
+
+##### Example Response:  
+```json
+{
+  "name": "Prajwal Ghotkar",
+  "city": "Los Angeles",
+  "age": 35,
+  "gender": "male",
+  "height": 1.75,
+  "weight": 85,
+  "bmi": 27.76,
+  "verdict": "Overweight"
+}
+```
+
+ If patient doesn’t exist:  
+```json
+{"detail": "Patient DataBase main hain hi nahi"}
+```
+
+---
+
+##### 5. Sort Patients (Query Parameters)  
+**GET /sort?sort_by={field}&order={asc/desc}**  
+
+- `sort_by`: **height | weight | bmi**  
+- `order`: **asc (default) | desc**  
+
+##### Example Request:  
+```
+/sort?sort_by=bmi&order=desc
+```
+
+##### Example Response (Top 2 shown):  
+```json
+[
+  {"name": "Ava Martinez", "city": "Indianapolis", "age": 34, "gender": "female", "height": 1.66, "weight": 95, "bmi": 34.49, "verdict": "Obese"},
+  {"name": "Rohan Patel", "city": "San Jose", "age": 45, "gender": "male", "height": 1.82, "weight": 110, "bmi": 33.20, "verdict": "Obese"}
+]
+```
+
+---
+
+##### Features
+- Query Parameter usage (`/patient?patient_id=P002`)  
+- Sort records dynamically by **height, weight, or BMI**  
+- JSON-based lightweight data storage  
+- Built-in validation & error handling with **HTTPException**  
+- Includes BMI values with health verdicts (Normal, Overweight, Obese, Underweight)  
+
+---
+
+
 
